@@ -78,15 +78,28 @@ Sub VBAChallenge():
                     ' Set conditional formatting that will highlight possitive and negative changes
                     
                 ' Calculate Percentage Change
+                    ' Make sure not dividing by 0
+                    If Open_Price = 0 Then
+                
+                        Percent_Change = NA
+                
+                    Else
+                        Percent_Change = (Yearly_Change / Open_Price)
+                    End If
+                
                 
                 ' Print Percentage Change to summary table
+                ws.Range("K" & Summary_Table_Row).Value = Percent_Change
+                
+                ' Format Percent Change cells
+                ws.Range("K" & Summary_Table_Row).Style = "Percent"
                 
                 ' Reset: Volume, Open Price, Close Price
                 Volume = 0
                 Open_Price = 0
                 Close_Price = 0
                 Yearly_Change = 0
-                ' Percentage_Change = 0
+                Percentage_Change = 0
                 
                 
                 ' Add one to Summary_Table_Row
@@ -105,8 +118,6 @@ Sub VBAChallenge():
         
     
     Next ws
-    
-    
     
 
 End Sub
