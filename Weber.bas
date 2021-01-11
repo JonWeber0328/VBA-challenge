@@ -16,7 +16,7 @@ Sub VBAChallenge():
         
         ' Set variable for Open Date
         Dim Open_Date As Double
-        Open_Date = 20160101
+        Open_Date = ws.Cells(2, 2).Value
         
         ' Set variable for Open Price and Close Price
         Dim Open_Price As Double
@@ -29,6 +29,11 @@ Sub VBAChallenge():
         ' Keep track of each Ticker location in the summary table
         Dim Summary_Table_Row As Integer
         Summary_Table_Row = 2
+        
+        ' -------------------------------------------------------------
+        ' Set cell colors
+        ColorGreen = 4
+        ColorRed = 3
         
         ' -------------------------------------------------------------
         ' Set up summary table
@@ -76,6 +81,11 @@ Sub VBAChallenge():
                 ws.Range("J" & Summary_Table_Row).Value = Yearly_Change
                 
                     ' Set conditional formatting that will highlight possitive and negative changes
+                    If Yearly_Change > 0 Then
+                        ws.Range("J" & Summary_Table_Row).Interior.ColorIndex = ColorGreen
+                    ElseIf Yearly_Change < 0 Then
+                        ws.Range("J" & Summary_Table_Row).Interior.ColorIndex = ColorRed
+                    End If
                     
                 ' Calculate Percentage Change
                     ' Make sure not dividing by 0
