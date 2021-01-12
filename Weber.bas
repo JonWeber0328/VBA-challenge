@@ -1,7 +1,8 @@
-Attribute VB_Name = "Module1"
+Attribute VB_Name = "Module11"
 Sub VBAChallenge():
     ' ----------------------------------------------------------
     ' Loop through all worksheets
+    ' ----------------------------------------------------------
     For Each ws In Worksheets
     
         ' -----------------------------------------------------------
@@ -32,18 +33,21 @@ Sub VBAChallenge():
         
         ' -------------------------------------------------------------
         ' Set cell colors
+        ' -------------------------------------------------------------
         ColorGreen = 4
         ColorRed = 3
         
         ' -------------------------------------------------------------
         ' Set up summary table
+        ' -------------------------------------------------------------
         ws.Cells(1, 9).Value = "Ticker"
         ws.Cells(1, 10).Value = "Yearly Change"
         ws.Cells(1, 11).Value = "Percent Change"
         ws.Cells(1, 12).Value = "Total Stock Volume"
         
         ' -------------------------------------------------------------
-        ' Look through each row
+        ' Look through each row and complete summary table
+        ' -------------------------------------------------------------
         Dim lastrow As Double
         lastrow = ws.Cells(Rows.Count, 1).End(xlUp).Row
         
