@@ -91,7 +91,7 @@ Sub VBAChallenge():
                     ' Make sure not dividing by 0
                     If Open_Price = 0 Then
                 
-                        Percent_Change = NA
+                        ws.Cells(i, 11).Value = "n/a"
                 
                     Else
                         Percent_Change = (Yearly_Change / Open_Price)
@@ -104,13 +104,12 @@ Sub VBAChallenge():
                 ' Format Percent Change cells
                 ws.Range("K" & Summary_Table_Row).Style = "Percent"
                 
-                ' Reset: Volume, Open Price, Close Price
-                Volume = 0
+                ' Reset: Open Price, Close Price, Yearly Change, Percentage Change, and Volume.
                 Open_Price = 0
                 Close_Price = 0
                 Yearly_Change = 0
                 Percentage_Change = 0
-                
+                Volume = 0
                 
                 ' Add one to Summary_Table_Row
                 Summary_Table_Row = Summary_Table_Row + 1
@@ -131,23 +130,4 @@ Sub VBAChallenge():
     
 
 End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
