@@ -15,10 +15,6 @@ Sub VBAChallenge():
         Dim Volume As String
         Volume = 0
         
-        ' Set variable for Open Date
-        Dim Open_Date As Double
-        Open_Date = ws.Cells(2, 2).Value
-        
         ' Set variable for Open Price and Close Price
         Dim Open_Price As Double
         Dim Close_Price As Double
@@ -53,15 +49,8 @@ Sub VBAChallenge():
         
         For i = 2 To lastrow
         
-            ' Check date to get Open Price
-            If Open_Date = ws.Cells(i, 2).Value Then
-                
-                ' Capture Open price
-                Open_Price = ws.Cells(i, 3).Value
-                
-            
             ' Check if the Ticker is still the same
-            ElseIf ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+            If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
             
                 ' Set the Ticker name
                 Ticker = ws.Cells(i, 1).Value
@@ -84,6 +73,7 @@ Sub VBAChallenge():
                 ' Print the Yearly_Change to summary table
                 ws.Range("J" & Summary_Table_Row).Value = Yearly_Change
                 
+                
                     ' Set conditional formatting that will highlight possitive and negative changes
                     If Yearly_Change > 0 Then
                         ws.Range("J" & Summary_Table_Row).Interior.ColorIndex = ColorGreen
@@ -91,14 +81,14 @@ Sub VBAChallenge():
                         ws.Range("J" & Summary_Table_Row).Interior.ColorIndex = ColorRed
                     End If
                     
+                    
                 ' Calculate Percentage Change
                     ' Make sure not dividing by 0
-                    If Open_Price = 0 Then
-                
-                        ws.Cells(i, 11).Value = "n/a"
+                    If Open_Price <> 0 Then
+                        Percent_Change = (Yearly_Change / Open_Price)
                 
                     Else
-                        Percent_Change = (Yearly_Change / Open_Price)
+                        Percent_Change = 0
                     End If
                 
                 
@@ -107,6 +97,7 @@ Sub VBAChallenge():
                 
                 ' Format Percent Change cells
                 ws.Range("K" & Summary_Table_Row).Style = "Percent"
+                
                 
                 ' Reset: Open Price, Close Price, Yearly Change, Percentage Change, and Volume.
                 Open_Price = 0
@@ -118,20 +109,25 @@ Sub VBAChallenge():
                 ' Add one to Summary_Table_Row
                 Summary_Table_Row = Summary_Table_Row + 1
                 
+                
             ' If the cell immediately following a row is the same Ticker...
             Else
                 
                 ' Add to the Ticker Volume
                 Volume = Volume + ws.Cells(i, 7).Value
                 
-            End If
+                ' Capture Open Price
+                If Open_Price = 0 Then
+                
+                    Open_Price = ws.Cells(i, 3).Value
                     
+                End If
+                 
+            End If
         
         Next i
         
-    
     Next ws
     
-
 End Sub
 
