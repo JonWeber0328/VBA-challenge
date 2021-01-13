@@ -189,14 +189,14 @@ Sub GreatestChange():
             ' -----------------------------------------------------------
             ' Loop through all worksheet rows and find Greatest % Decrease
             ' -----------------------------------------------------------
-' Just wrong
+' Correct
             Greatest_P_Decrease = 0
             For i = 2 To lastrow1
         
                 If ws.Cells(i, 11).Value < Greatest_P_Decrease Then
         
-                    Greatest_P_Decrease = ws.Cells(i + 1, 11).Value
-                    Ticker2 = ws.Cells(i + 1, 9).Value
+                    Greatest_P_Decrease = ws.Cells(i, 11).Value
+                    Ticker2 = ws.Cells(i, 9).Value
                     
                 Else
             
@@ -208,6 +208,9 @@ Sub GreatestChange():
                     ' Print Greatest Percent Decrease and Ticker to summary table
                     ws.Cells(3, 16).Value = Ticker2
                     ws.Cells(3, 17).Value = Greatest_P_Decrease
+                    
+                        ' Format Percent Change cells
+                        ws.Range("Q3").Style = "Percent"
             Next i
         
                 ' -----------------------------------------------------------
